@@ -1,0 +1,38 @@
+databases:
+  - name: lab12-db
+    databaseName: lab12_jvizcarra
+    user: lab12
+    plan: free
+    region: oregon
+
+services:
+  - type: web
+    name: lab12-jeremyvizcarra
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    autoDeploy: false
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: DB_HOST
+        fromDatabase:
+          name: lab12-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: lab12-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: lab12-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: lab12-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: lab12-db
+          property: password
